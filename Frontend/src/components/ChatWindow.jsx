@@ -39,7 +39,7 @@ function ChatWindow() {
             })
         }
         try {
-            const response = await fetch('http://localhost:8001/api/chat', options)
+            const response = await fetch(`${process.env.ASKGPT_API_URL}/chat`, options)
             if (!response.ok) throw new Error("Failed to fetch response");
             const res = await response.json()
             // console.log(res.reply)
@@ -64,7 +64,7 @@ function ChatWindow() {
         };
 
         try {
-            const response = await fetch('http://localhost:8001/api/generate-image', imgOptions);
+            const response = await fetch(`${process.env.ASKGPT_API_URL}/generate-image`, imgOptions);
 
             const res = await response.json();
 
@@ -76,7 +76,7 @@ function ChatWindow() {
 
                 // Use actual image path in reply
                 // ![Generated Image](/assets/Image_2025-08-07_11-46-28.png)
-                const imageReply = `Here is the generated image:\n\n![Generated Image](http://localhost:8001${res.image.imageUrl})`;
+                const imageReply = `Here is the generated image:\n\n![Generated Image](${process.env.ASKGPT_API_URL}${res.image.imageUrl})`;
                 // console.log('image path---->', res.image.imageUrl)
                 // console.log('imageReply------>', imageReply)
 

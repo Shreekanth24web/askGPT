@@ -57,7 +57,7 @@ function Chat() {
                                                 components={{
                                                     img: ({ node, ...props }) => {
                                                         const fileName = props.src?.split('/').pop() || "image.jpg";
-                                                        const newSrc = `http://localhost:8001/assets/${fileName}`
+                                                        const newSrc = `${process.env.ASKGPT_API_URL}/${fileName}`
 
                                                         return (
                                                             <span>
@@ -79,7 +79,7 @@ function Chat() {
                                                     typeof chat.content === "string"
                                                         ? chat.content // render plain text or markdown
                                                         : chat.isImage && chat.content.imageUrl
-                                                            ? `![Generated](http://localhost:8001/assets/${chat.content.imageUrl})` // dynamically insert image markdown
+                                                            ? `![Generated](${process.env.ASKGPT_API_URL}/${chat.content.imageUrl})` // dynamically insert image markdown
                                                             : ""
                                                 }
 
@@ -114,7 +114,7 @@ function Chat() {
                                             components={{
                                                 img: ({ node, ...props }) => {
                                                     const fileName = props.src?.split("/").pop() || "image.jpg";
-                                                    const newSrc = `http://localhost:8001/assets/${fileName}`;
+                                                    const newSrc = `${process.env.ASKGPT_API_URL}/${fileName}`;
                                                     return (
                                                         <span>
                                                             <img {...props} src={newSrc} alt="Generated_Image" style={{ maxWidth: "100%", borderRadius: "8px" }} />
@@ -128,7 +128,7 @@ function Chat() {
                                         >
                                             {
                                                 lastChat.isImage && lastChat.content.imageUrl
-                                                    ? `![Generated](http://localhost:8001/assets/${lastChat.content.imageUrl})`
+                                                    ? `![Generated](${process.env.ASKGPT_API_URL}/${lastChat.content.imageUrl})`
                                                     : latestReply !== null
                                                         ? latestReply  // animated text
                                                         : lastChat.content // full static text

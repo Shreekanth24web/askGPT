@@ -13,7 +13,7 @@ function GeneratedImages() {
 
     try {
         const response = await fetch(
-            `http://localhost:8001/api/allGenImages/${fileName}`,
+            `${process.env.ASKGPT_API_URL}/allGenImages/${fileName}`,
             { method: "DELETE" }
         );
 

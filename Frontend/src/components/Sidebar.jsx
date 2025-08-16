@@ -20,7 +20,7 @@ function Sidebar() {
     const getAllThreads = async () => {
         const token = localStorage.getItem("token");
         try {
-            const response = await fetch("http://localhost:8001/api/thread", {
+            const response = await fetch(`${process.env.ASKGPT_API_URL}/thread`, {
                 headers: { "Authorization": `Bearer ${token}` }
             })
             const res = await response.json()
@@ -45,7 +45,7 @@ function Sidebar() {
     const getAllThreadsAdmin = async () => {
         const token = localStorage.getItem("token");
         try {
-            const response = await fetch("http://localhost:8001/api/getAllThreads", {
+            const response = await fetch(`${process.env.ASKGPT_API_URL}/getAllThreads`, {
                 headers: { "Authorization": `Bearer ${token}` }
             })
             const res = await response.json()
@@ -81,14 +81,14 @@ function Sidebar() {
         const token = localStorage.getItem("token");
         try {
 
-            const response = await fetch("http://localhost:8001/api/allGenImages", {
+            const response = await fetch(`${process.env.ASKGPT_API_URL}/allGenImages`, {
                 headers: { "Authorization": `Bearer ${token}` }
             })
             const URLData = await response.json()
             // console.log("Images API →", URLData)
             // console.log(res)
             if (Array.isArray(URLData)) {
-                const allIamges = URLData.map(img => `http://localhost:8001${img.content.imageUrl}`)
+                const allIamges = URLData.map(img => `${process.env.ASKGPT_API_URL}${img.content.imageUrl}`)
                 setAllImages(allIamges)
             } else {
                 console.error("Unexpected response (not an array):", URLData)
@@ -102,14 +102,14 @@ function Sidebar() {
         const token = localStorage.getItem("token");
         try {
 
-            const response = await fetch("http://localhost:8001/api/allGenImagesAdmin", {
+            const response = await fetch(`${process.env.ASKGPT_API_URL}/allGenImagesAdmin`, {
                 headers: { "Authorization": `Bearer ${token}` }
             })
             const URLData = await response.json()
             // console.log("Images API →", URLData)
             // console.log(res)
             if (Array.isArray(URLData)) {
-                const allIamges = URLData.map(img => `http://localhost:8001${img.content.imageUrl}`)
+                const allIamges = URLData.map(img => `${process.env.ASKGPT_API_URL}${img.content.imageUrl}`)
                 setAllImages(allIamges)
             } else {
                 console.error("Unexpected response (not an array):", URLData)
@@ -142,7 +142,7 @@ function Sidebar() {
         setCurrentThreadId(newThreadId)
         const token = localStorage.getItem("token");
         try {
-            const response = await fetch(`http://localhost:8001/api/thread/${newThreadId}`, {
+            const response = await fetch(`${process.env.ASKGPT_API_URL}/thread/${newThreadId}`, {
                 headers: { "Authorization": `Bearer ${token}` }
             })
             const res = await response.json()
@@ -161,7 +161,7 @@ function Sidebar() {
         setCurrentThreadId(newAllThreadId)
         const token = localStorage.getItem("token");
         try {
-            const response = await fetch(`http://localhost:8001/api/getAllThreads/${newAllThreadId}`, {
+            const response = await fetch(`${process.env.ASKGPT_API_URL}/getAllThreads/${newAllThreadId}`, {
                 headers: { "Authorization": `Bearer ${token}` }
             })
             const res = await response.json()
@@ -191,7 +191,7 @@ function Sidebar() {
         // console.log(delThreadId)
         const token = localStorage.getItem("token");
         try {
-            const response = await fetch(`http://localhost:8001/api/thread/${delThreadId}`, {
+            const response = await fetch(`${process.env.ASKGPT_API_URL}/thread/${delThreadId}`, {
                 method: "DELETE",
                 headers: { "Authorization": `Bearer ${token}` }
             })

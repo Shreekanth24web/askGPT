@@ -24,7 +24,7 @@ function Signup() {
             body: JSON.stringify(signupData)
         }
         try {
-            const res = await fetch('http://localhost:8001/user/signup', options)
+            const res = await fetch(`${process.env.ASKGPT_API_URL}/signup`, options)
             //    console.log(res)
             const data = await res.json()
             //  console.log("Response from server:", data);
