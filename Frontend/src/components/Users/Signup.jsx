@@ -1,6 +1,7 @@
 import '../../Styles/signup.css';
 import { Link, useNavigate } from 'react-router-dom';
-const API_URL = process.env.ASKGPT_API_URL || "http://localhost:8001";
+const API_URL = import.meta.env.VITE_ASKGPT_API_URL || "http://localhost:8001";
+
 
  
 import {  useState } from 'react';

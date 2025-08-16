@@ -2,8 +2,7 @@ import '../Styles/sidebar.css'
 import { useContext, useEffect } from 'react'
 import { MyContext } from './MyContext'
 import { v1 as uuidv1 } from 'uuid'
-const API_URL = process.env.ASKGPT_API_URL || "http://localhost:8001";
-
+const API_URL = import.meta.env.VITE_ASKGPT_API_URL || "http://localhost:8001";
 
 function Sidebar() {
     const { allThreads, setAllThreads, setNewChat, setPrompt, setReply, currentThreadId, setCurrentThreadId, setPrevChats,

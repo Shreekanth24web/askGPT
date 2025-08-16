@@ -5,7 +5,7 @@ import { MyContext } from './MyContext.jsx'
 import { PropagateLoader } from 'react-spinners'
 import GeneratedImages from './GeneratedImages.jsx'
 import { useNavigate } from 'react-router'
-const API_URL = process.env.ASKGPT_API_URL || "http://localhost:8001";
+const API_URL = import.meta.env.VITE_ASKGPT_API_URL || "http://localhost:8001";
 
 
 function ChatWindow() {

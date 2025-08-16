@@ -6,7 +6,8 @@ import rehypeHighlight from 'rehype-highlight'
 // import "highlight.js/styles/github.css"
 import "highlight.js/styles/vs2015.css";
 import ErrorBoundary from './ErrorBoundary';
-const API_URL = process.env.ASKGPT_API_URL || "http://localhost:8001";
+const API_URL = import.meta.env.VITE_ASKGPT_API_URL || "http://localhost:8001";
+
 
 function Chat() {
     const { newChat, prevChats, reply } = useContext(MyContext);
