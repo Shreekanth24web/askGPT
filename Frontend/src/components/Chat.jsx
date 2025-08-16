@@ -6,6 +6,7 @@ import rehypeHighlight from 'rehype-highlight'
 // import "highlight.js/styles/github.css"
 import "highlight.js/styles/vs2015.css";
 import ErrorBoundary from './ErrorBoundary';
+const API_URL = process.env.ASKGPT_API_URL || "http://localhost:8001";
 
 function Chat() {
     const { newChat, prevChats, reply } = useContext(MyContext);
@@ -57,7 +58,7 @@ function Chat() {
                                                 components={{
                                                     img: ({ node, ...props }) => {
                                                         const fileName = props.src?.split('/').pop() || "image.jpg";
-                                                        const newSrc = `${process.env.ASKGPT_API_URL}/${fileName}`
+                                                        const newSrc = `${API_URL}/assets/${fileName}`
 
                                                         return (
                                                             <span>
@@ -79,7 +80,7 @@ function Chat() {
                                                     typeof chat.content === "string"
                                                         ? chat.content // render plain text or markdown
                                                         : chat.isImage && chat.content.imageUrl
-                                                            ? `![Generated](${process.env.ASKGPT_API_URL}/${chat.content.imageUrl})` // dynamically insert image markdown
+                                                            ? `![Generated](${API_URL}/assets/${chat.content.imageUrl})` // dynamically insert image markdown
                                                             : ""
                                                 }
 
@@ -114,7 +115,7 @@ function Chat() {
                                             components={{
                                                 img: ({ node, ...props }) => {
                                                     const fileName = props.src?.split("/").pop() || "image.jpg";
-                                                    const newSrc = `${process.env.ASKGPT_API_URL}/${fileName}`;
+                                                    const newSrc = `${API_URL}/assets/${fileName}`;
                                                     return (
                                                         <span>
                                                             <img {...props} src={newSrc} alt="Generated_Image" style={{ maxWidth: "100%", borderRadius: "8px" }} />
@@ -128,7 +129,7 @@ function Chat() {
                                         >
                                             {
                                                 lastChat.isImage && lastChat.content.imageUrl
-                                                    ? `![Generated](${process.env.ASKGPT_API_URL}/${lastChat.content.imageUrl})`
+                                                    ? `![Generated](${API_URL}/assets/${lastChat.content.imageUrl})`
                                                     : latestReply !== null
                                                         ? latestReply  // animated text
                                                         : lastChat.content // full static text

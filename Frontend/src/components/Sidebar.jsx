@@ -2,6 +2,7 @@ import '../Styles/sidebar.css'
 import { useContext, useEffect } from 'react'
 import { MyContext } from './MyContext'
 import { v1 as uuidv1 } from 'uuid'
+const API_URL = process.env.ASKGPT_API_URL || "http://localhost:8001";
 
 
 function Sidebar() {
@@ -20,7 +21,7 @@ function Sidebar() {
     const getAllThreads = async () => {
         const token = localStorage.getItem("token");
         try {
-            const response = await fetch(`${process.env.ASKGPT_API_URL}/thread`, {
+            const response = await fetch(`${API_URL}/api/thread`, {
                 headers: { "Authorization": `Bearer ${token}` }
             })
             const res = await response.json()
@@ -45,7 +46,7 @@ function Sidebar() {
     const getAllThreadsAdmin = async () => {
         const token = localStorage.getItem("token");
         try {
-            const response = await fetch(`${process.env.ASKGPT_API_URL}/getAllThreads`, {
+            const response = await fetch(`${API_URL}/api/getAllThreads`, {
                 headers: { "Authorization": `Bearer ${token}` }
             })
             const res = await response.json()
@@ -81,14 +82,14 @@ function Sidebar() {
         const token = localStorage.getItem("token");
         try {
 
-            const response = await fetch(`${process.env.ASKGPT_API_URL}/allGenImages`, {
+            const response = await fetch(`${API_URL}/api/allGenImages`, {
                 headers: { "Authorization": `Bearer ${token}` }
             })
             const URLData = await response.json()
             // console.log("Images API →", URLData)
             // console.log(res)
             if (Array.isArray(URLData)) {
-                const allIamges = URLData.map(img => `${process.env.ASKGPT_API_URL}${img.content.imageUrl}`)
+                const allIamges = URLData.map(img => `${API_URL}${img.content.imageUrl}`)
                 setAllImages(allIamges)
             } else {
                 console.error("Unexpected response (not an array):", URLData)
@@ -102,14 +103,14 @@ function Sidebar() {
         const token = localStorage.getItem("token");
         try {
 
-            const response = await fetch(`${process.env.ASKGPT_API_URL}/allGenImagesAdmin`, {
+            const response = await fetch(`${API_URL}/api/allGenImagesAdmin`, {
                 headers: { "Authorization": `Bearer ${token}` }
             })
             const URLData = await response.json()
             // console.log("Images API →", URLData)
             // console.log(res)
             if (Array.isArray(URLData)) {
-                const allIamges = URLData.map(img => `${process.env.ASKGPT_API_URL}${img.content.imageUrl}`)
+                const allIamges = URLData.map(img => `${API_URL}${img.content.imageUrl}`)
                 setAllImages(allIamges)
             } else {
                 console.error("Unexpected response (not an array):", URLData)
@@ -142,7 +143,7 @@ function Sidebar() {
         setCurrentThreadId(newThreadId)
         const token = localStorage.getItem("token");
         try {
-            const response = await fetch(`${process.env.ASKGPT_API_URL}/thread/${newThreadId}`, {
+            const response = await fetch(`${API_URL}/api/thread/${newThreadId}`, {
                 headers: { "Authorization": `Bearer ${token}` }
             })
             const res = await response.json()
@@ -161,7 +162,7 @@ function Sidebar() {
         setCurrentThreadId(newAllThreadId)
         const token = localStorage.getItem("token");
         try {
-            const response = await fetch(`${process.env.ASKGPT_API_URL}/getAllThreads/${newAllThreadId}`, {
+            const response = await fetch(`${API_URL}/api/getAllThreads/${newAllThreadId}`, {
                 headers: { "Authorization": `Bearer ${token}` }
             })
             const res = await response.json()
@@ -191,7 +192,7 @@ function Sidebar() {
         // console.log(delThreadId)
         const token = localStorage.getItem("token");
         try {
-            const response = await fetch(`${process.env.ASKGPT_API_URL}/thread/${delThreadId}`, {
+            const response = await fetch(`${API_URL}/api/thread/${delThreadId}`, {
                 method: "DELETE",
                 headers: { "Authorization": `Bearer ${token}` }
             })

@@ -1,5 +1,7 @@
 import '../../Styles/signup.css';
 import { Link, useNavigate } from 'react-router-dom';
+const API_URL = process.env.ASKGPT_API_URL || "http://localhost:8001";
+
  
 import {  useState } from 'react';
 function Signup() {
@@ -24,7 +26,7 @@ function Signup() {
             body: JSON.stringify(signupData)
         }
         try {
-            const res = await fetch(`${process.env.ASKGPT_API_URL}/user/signup`, options)
+            const res = await fetch(`${API_URL}/user/signup`, options)
             //    console.log(res)
             const data = await res.json()
             //  console.log("Response from server:", data);

@@ -2,6 +2,7 @@ import '../../Styles/signup.css';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { useState } from 'react';
+const API_URL = process.env.ASKGPT_API_URL || "http://localhost:8001";
 
 function Login() {
     const navigate = useNavigate();
@@ -26,7 +27,7 @@ function Login() {
             })
         }
         try {
-            const res = await fetch(`${process.env.ASKGPT_API_URL}/user/login`, options)
+            const res = await fetch(`${API_URL}/user/login`, options)
             const data = await res.json()
             console.log("Response from server:", data);
             if (!res.ok) throw new Error(data.error || "Login failed");
