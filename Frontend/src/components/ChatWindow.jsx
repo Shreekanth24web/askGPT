@@ -119,10 +119,11 @@ function ChatWindow() {
     }, [])
 
     const handleLogout = () => {
+        console.log("------logout----")
         localStorage.clear()
         // setNewChat(true) 
-        // setIsOpen(false)
-        navigate('/login', { replace: true }) 
+        setIsOpen(false)
+        navigate('/', { replace: true }) 
     }
 
     return (
