@@ -27,7 +27,7 @@ function Login() {
             })
         }
         try {
-            const res = await fetch(`${API_URL}/user/login`, options)
+            const res = await fetch(`${API_URL}/login`, options)
             const data = await res.json()
             // console.log("Response from server:", data);
             if (!res.ok) throw new Error(data.error || "Login failed");
