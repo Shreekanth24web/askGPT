@@ -2,7 +2,7 @@ import '../../Styles/signup.css';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { useState } from 'react';
-const API_URL = import.meta.env.VITE_ASKGPT_API_URL || "http://localhost:8001";
+const API_URL = import.meta.env.VITE_ASKGPT_API_URL;
 
 function Login() {
     const navigate = useNavigate();
