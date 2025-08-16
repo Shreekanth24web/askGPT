@@ -14,11 +14,6 @@ const run = async () => {
 };
 
 // run();
-
-
- 
-
-
 const ai = new GoogleGenAI({});
 async function generateImage(promptText) {
     try {
