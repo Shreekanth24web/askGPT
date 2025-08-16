@@ -1,0 +1,54 @@
+.chats {
+    max-width: 700px;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    padding: 8rem;
+}
+
+.userDiv {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 0.9rem;
+
+}
+
+.gptDiv {
+    text-align: left;
+    font-size: 0.9rem;
+}
+
+.userMessage {
+    background-color: #323232;
+    padding: 10px 20px;
+    border-radius: 14px;
+    margin-left: 15rem;
+    max-width: 500px;
+    width: fit-content;
+}
+
+.hljs {
+    border-radius: 14px;
+    background: #181818 !important;
+}
+
+.gptDiv img {
+    height: 300px;
+    width: 300px;
+    border-radius: 8px;
+}
+
+.downloadBtn {
+    display: inline-block;
+    margin-top: 5px;
+    /* background-color: #007bff; */
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    opacity: 0.8;
+    font-size: 1.5rem;
+    margin-left: 10px;
+}
+
+.downloadBtn:hover {
+    opacity: 1;
+}

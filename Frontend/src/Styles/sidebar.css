@@ -1,0 +1,126 @@
+.sidebar {
+    background-color: #171717;
+    color: #b4b4b4;
+    height: 100vh;
+    width: 320px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.logo {
+    background: transparent;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 8px;
+    margin: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 1px solid rgba(180, 180, 180, 0.502);
+    height: 2rem;
+}
+
+.logo p {
+    font-size: 16px;
+    font-weight: 600;
+    color: #b8b7b7;
+}
+
+.logo i {
+    font-size: 18px;
+    font-weight: 100;
+    color: #b8b7b7;
+}
+
+.logo:hover {
+    background: #e1e1e114;
+}
+
+.thread {
+    height: 100%;
+    margin: 10px 0px;
+    padding: 0px 10px;
+    overflow-y: scroll;
+    scrollbar-width: thin;
+    scrollbar-color: #888 #181818;
+    color: #ececec;
+}
+
+.thread:hover {
+    scrollbar-color: #f1f1f1 #181818;
+}
+
+
+.thread li {
+    cursor: pointer;
+    padding: 8px 8px;
+    font-size: 14px;
+    border: solid 1px transparent;
+    position: relative;
+    border-radius: 5px;
+    list-style-type: none;
+    margin-bottom: 0.4rem;
+}
+
+.thread p {
+    padding: 0px 8px;
+    color: #777;
+    font-size: 16px;
+}
+
+.thread li:hover {
+    background: rgba(225, 225, 225, 0.08);
+}
+
+.sign {
+    font-size: 14px;
+    padding: 0px 10px;
+    margin: 10px;
+    text-align: center;
+    border-top: 1px solid rgba(225, 225, 225, 0.5);
+}
+
+.fa-trash {
+    position: absolute;
+    opacity: 0;
+    right: 0;
+    padding: 0px 2px;
+}
+
+.thread li:hover .fa-trash {
+    opacity: 1;
+}
+
+.fa-trash:hover {
+    color: #f87171;
+}
+
+.highlighted {
+    background-color: rgba(180, 180, 180, 0.05);
+    border-radius: 10px;
+}
+
+.img-gallery-icon {
+    padding: 2px 10px;
+    font-size: 25px;
+    cursor: pointer;
+    color: white;
+}
+
+/* .gallery{
+    
+    position: absolute;
+    top: 0; 
+    margin-top: 10px;
+    width: 700px;
+    margin-left: 500px;
+    overflow-y: scroll;
+    background-color: red;
+    height:500px;
+    z-index: 11;
+}
+.gallry img{
+    display: grid;
+    grid-template-columns: auto auto auto;
+} */

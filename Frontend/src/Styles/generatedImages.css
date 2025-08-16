@@ -1,0 +1,53 @@
+.genImg {
+    height: 100vh;
+    width: 100%;
+    overflow-y: scroll;
+    scrollbar-width: thin;
+}
+
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 70px;
+
+}
+
+.image-container {
+    position: relative;
+    display: inline-block;
+}
+
+.image-container img {
+    border-radius: 5px;
+    border: 2px solid #ccc;
+    height: 200px;
+    width: 200px;
+}
+
+.icons {
+    position: absolute;
+    bottom: 10px;
+    right: 5px;
+    display: flex;
+    gap: 8px;
+    opacity: 0;
+}
+
+.img-action {
+    background: rgba(0, 0, 0, 0.6);
+    color: #eee;
+    padding: 5px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.2s ease;
+}
+
+.icons:hover {
+    opacity: 1;
+}
+
+.img-action:hover {
+    background: rgba(0, 0, 0, 0.8);
+}
