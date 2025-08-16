@@ -51,7 +51,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
 
           {/* Protected UI after login */}
-          <Route path="/askgtp" element={
+          <Route path="/askgpt" element={
             <>
               <Sidebar />
               <ChatWindow />

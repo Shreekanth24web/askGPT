@@ -122,8 +122,7 @@ function ChatWindow() {
         localStorage.clear()
         // setNewChat(true) 
         // setIsOpen(false)
-        navigate('/login', { replace: true })
-        window.location.reload();
+        navigate('/login', { replace: true }) 
     }
 
     return (

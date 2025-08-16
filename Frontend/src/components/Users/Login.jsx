@@ -27,7 +27,7 @@ function Login() {
             })
         }
         try {
-            const res = await fetch(`${API_URL}/login`, options)
+            const res = await fetch(`${API_URL}/user/login`, options)
             const data = await res.json()
             // console.log("Response from server:", data);
             if (!res.ok) throw new Error(data.error || "Login failed");
@@ -39,7 +39,7 @@ function Login() {
             }
             localStorage.setItem('user', JSON.stringify(data.user));
             alert(data.message || "Login successful!");
-            navigate('/askgtp');
+            navigate('/askgpt');
 
         } catch (error) {
             console.error("Error during login:", error);
