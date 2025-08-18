@@ -123,7 +123,8 @@ function ChatWindow() {
         localStorage.clear()
         // setNewChat(true) 
         setIsOpen(false)
-        navigate('/', { replace: true }) 
+        navigate('/', { replace: true })
+        window.location.reload() 
     }
 
     return (

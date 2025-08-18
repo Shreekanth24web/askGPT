@@ -38,8 +38,8 @@ const connectDB = async () => {
     }
 }
 
-const buildPath = path.join(__dirname, "../frontend/build");
-app.use(express.static(buildPath));
+// const buildPath = path.join(__dirname, "../frontend/build");
+// app.use(express.static(buildPath));
 
 app.listen(PORT, () => {
     console.log(`Server is Runing at ${PORT}...`);
