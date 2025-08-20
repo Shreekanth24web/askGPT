@@ -16,6 +16,7 @@ function Login() {
     }
     const handleSubmit = async (e) => {
         e.preventDefault();
+        // console.log("Login data:", loginData);
         const options = {
             method: "POST",
             headers: {
@@ -81,7 +82,7 @@ function Login() {
                     </div>
 
                     <p>
-                        if you don't have an account please signup
+                        if you don't have an account please signup*
                     </p>
                 </form>
             </div>

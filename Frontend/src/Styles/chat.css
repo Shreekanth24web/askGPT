@@ -9,7 +9,7 @@
     display: flex;
     justify-content: flex-end;
     font-size: 0.9rem;
-
+    /* background-color: yellow; */
 }
 
 .gptDiv {
@@ -51,4 +51,73 @@
 
 .downloadBtn:hover {
     opacity: 1;
+}
+
+/* Responsive */
+
+@media (max-width: 575px) {
+    .chats {
+        max-width: 500px;
+        padding: 2rem;
+    }
+
+    .userMessage {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .gptDiv img {
+        width: 200px;
+        height: auto;
+        border-radius: 8px;
+    }
+
+    .userDiv {
+        text-align: right;
+    }
+
+    .userMessage {
+        margin-left: 6rem;
+    }
+
+    .gptDiv { 
+        line-height: 1.5;
+        letter-spacing: .8px;
+        font-size: 0.8rem;
+        font-weight: 400;
+    }
+}
+@media (max-width: 325px) {
+    .chats {
+        max-width: 500px;
+        padding: 2rem;
+    }
+
+    .userMessage {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .gptDiv img {
+        width: 100px;
+        height: auto;
+        border-radius: 8px;
+    }
+
+    .userDiv {
+        text-align: left;
+    }
+ 
+    .gptDiv { 
+        line-height: 1.5;
+        letter-spacing: .8px;
+        font-size: 0.8rem;
+        font-weight: 550;
+    }
+    .newchat-head {
+        font-size: 1.2rem;
+        text-align: center;
+        margin-top: 2rem;
+        color: #ececec;
+    }
 }

@@ -1,5 +1,5 @@
 import '../Styles/sidebar.css'
-import { useContext, useEffect } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { MyContext } from './MyContext'
 import { v1 as uuidv1 } from 'uuid'
 const API_URL = import.meta.env.VITE_ASKGPT_API_URL;
@@ -7,11 +7,12 @@ const API_URL = import.meta.env.VITE_ASKGPT_API_URL;
 
 function Sidebar() {
     const { allThreads, setAllThreads, setNewChat, setPrompt, setReply, currentThreadId, setCurrentThreadId, setPrevChats,
-        setAllImages, theme, setTheme, isImgOpen, setIsImgOpen } = useContext(MyContext)
+        setAllImages, theme, setTheme, isImgOpen, setIsImgOpen, isSidebarOpen } = useContext(MyContext)
 
     const toggleTheme = () => {
         setTheme(theme === "dark" ? "light" : "dark")
     }
+
 
     const toggleImageComponent = () => {
         // console.log("click")
@@ -122,7 +123,7 @@ function Sidebar() {
     }
 
 
-     useEffect(() => {
+    useEffect(() => {
         const role = localStorage.getItem("role");
         if (role === "admin") {
             getAllImagesAdmin();
@@ -210,52 +211,54 @@ function Sidebar() {
     }
 
     return (
-        <section className='sidebar'>
-            <button className='logo' onClick={createNewChat}>
-                <p>AskGPT</p>
-                <i className='fa-solid fa-pen-to-square'></i>
-            </button>
+        isSidebarOpen && (
+            <section className='sidebar'>
+                <button className='logo' onClick={createNewChat}>
+                    <p>AskGPT</p>
+                    <i className='fa-solid fa-pen-to-square'></i>
+                </button>
 
-            <button className='theme-toggle' onClick={toggleTheme}>
-                {theme === "dark" ? "☀️Light" : "🌑Dark"}
-            </button>
+                <button className='theme-toggle' onClick={toggleTheme}>
+                    {theme === "dark" ? "☀️Light" : "🌑Dark"}
+                </button>
 
-            <div className='img-gallery-icon' onClick={toggleImageComponent}>
-                <i className="fa-solid fa-images"></i>
-            </div>
+                <div className='img-gallery-icon' onClick={toggleImageComponent}>
+                    <i className="fa-solid fa-images"></i>
+                </div>
 
-            <ul className='thread'>
-                <p>Chats</p>
-                {
-                    allThreads?.map((thread) => {
-                        // console.log(thread.title)
-                        return (
-                            <div key={thread.threadId}>
-                                <li onClick={(e) => {
-                                    handleChangeThread(thread.threadId)
-                                    setIsImgOpen(false)
+                <ul className='thread'>
+                    <p>Chats</p>
+                    {
+                        allThreads?.map((thread) => {
+                            // console.log(thread.title)
+                            return (
+                                <div key={thread.threadId}>
+                                    <li onClick={(e) => {
+                                        handleChangeThread(thread.threadId)
+                                        setIsImgOpen(false)
 
-                                }}
-                                    className={thread.threadId === currentThreadId ? "highlighted" : ""}
-                                >
-                                    {thread.title}
-                                    <i className='fa-solid fa-trash'
-                                        onClick={(e) => {
-                                            e.stopPropagation()
-                                            deleteThread(thread.threadId)
-                                        }}
-                                    ></i>
-                                </li>
-                            </div>
-                        )
-                    })
-                }
-            </ul>
+                                    }}
+                                        className={thread.threadId === currentThreadId ? "highlighted" : ""}
+                                    >
+                                        {thread.title}
+                                        <i className='fa-solid fa-trash'
+                                            onClick={(e) => {
+                                                e.stopPropagation()
+                                                deleteThread(thread.threadId)
+                                            }}
+                                        ></i>
+                                    </li>
+                                </div>
+                            )
+                        })
+                    }
+                </ul>
 
-            <div className="sign">
-                <p>By AskGPT &hearts;</p>
-            </div>
-        </section>
+                <div className="sign">
+                    <p>By AskGPT &hearts;</p>
+                </div>
+            </section>
+        )
     )
 }
 

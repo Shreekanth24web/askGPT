@@ -6,7 +6,6 @@ import mongoose from 'mongoose';
 import chatRoutes from './routes/chat.js'
 import userRoutes from './routes/user.js'
 
-
 //server connection
 const app = express();
 const PORT = process.env.PORT || 8001
@@ -27,7 +26,6 @@ app.use("/assets", express.static(path.join(__dirname, "public/assets")));
 
 app.use('/api', chatRoutes)
 app.use('/user', userRoutes)
-
 
 const connectDB = async () => {
     try {

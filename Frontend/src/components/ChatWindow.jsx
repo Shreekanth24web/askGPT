@@ -9,10 +9,15 @@ const API_URL = import.meta.env.VITE_ASKGPT_API_URL;
 
 
 function ChatWindow() {
-    const { prompt, setPrompt, reply, setReply, currentThreadId, setPrevChats, setNewChat, isOpen, setIsOpen, allImages, setAllImages, isImgOpen, setIsImgOpen } = useContext(MyContext)
-    const [loading, setLoading] = useState(false)
-    const [profile, setProfile] = useState(null)
     const navigate = useNavigate()
+    const { prompt, setPrompt, reply, setReply, currentThreadId, setPrevChats, setNewChat, isOpen, setIsOpen, allImages, setAllImages, isImgOpen, setIsImgOpen,isSidebarOpen, setIsSidebarOpen } = useContext(MyContext)
+    const [loading, setLoading] = useState(false)
+    const [profile, setProfile] = useState(null) 
+
+    const toggleSidebar = () => {
+        console.log("click")
+        setIsSidebarOpen(!isSidebarOpen)
+    }
 
     const dropDoentoggle = () => {
         // console.log("click")
@@ -135,7 +140,7 @@ function ChatWindow() {
 
                     <div className="navbar">
 
-                        <span>AskGPT <i className="fa-solid fa-chevron-down"></i></span>
+                        <span onClick={toggleSidebar}>AskGPT <i className="fa-solid fa-chevron-down"></i></span>
 
                         <div className="userIconDiv" onClick={dropDoentoggle}>
                             <span className='userIcon'>

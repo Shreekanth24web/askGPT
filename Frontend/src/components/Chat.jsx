@@ -40,7 +40,7 @@ function Chat() {
     return (
 
         <>
-            {newChat && <h1>Start a New Chat !</h1>}
+            {newChat && <h1 className='newchat-head'>Start a New Chat !</h1>}
 
             <div className="chats">
 

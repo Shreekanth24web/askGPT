@@ -122,15 +122,107 @@
 .userIconDiv {
     display: flex;
     align-items: center;
-    justify-content: space-evenly; 
+    justify-content: space-evenly;
     padding-right: 20px;
-    cursor: pointer; 
+    cursor: pointer;
 }
 
 .avatar {
     position: relative;
     right: 20px;
 }
-.avatar:hover{
+
+.avatar:hover {
     color: #999;
+}
+
+/* Responsive  */
+@media (max-width: 575px) {
+
+    .inputBox input {
+        padding: 18px;
+        margin: 8px;
+    }
+
+}
+
+@media (max-width:475px) {
+    .inputBox input {
+        padding: 18px;
+        margin: 8px;
+    }
+
+    .navbar span {
+        margin: 0rem 1rem;
+    }
+
+    .avatar {
+        position: relative;
+        right: 8px;
+    }
+}
+
+@media (max-width:391px) {
+
+    .inputBox input {
+        padding: 18px;
+        margin: 8px;
+    }
+
+    .navbar span {
+        margin: 0rem .8rem;
+        font-size: 14px;
+    }
+
+    .navbar span i {
+        font-size: 14px;
+    }
+
+    .avatar {
+        position: relative;
+        right: 8px;
+    }
+
+}
+
+@media (max-width:325px) {
+
+    .inputBox input {
+        padding: 15px;
+        margin: 9px;
+        margin-left: 20px;
+    }
+
+    .navbar span {
+        margin: 0rem .8rem;
+        font-size: 12px;
+    }
+
+    .navbar span i {
+        font-size: 14px;
+    }
+
+    .avatar {
+        position: relative;
+        right: 8px;
+    }
+
+    .userIconDiv {
+        font-size: 0.8rem;
+    }
+
+    .info {
+        font-size: 0.7rem;
+        text-align: center;
+    }
+
+    .dropdown {
+       
+        right: 4rem;
+        top: 3rem;
+        width: 150px; 
+        padding: 0.3rem 0.5rem;
+        
+        /* color: #ececec; */
+    }
 }

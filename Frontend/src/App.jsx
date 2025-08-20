@@ -21,6 +21,7 @@ function App() {
   const [theme, setTheme] = useState('dark')
   const [isOpen, setIsOpen] = useState(false)
   const [isImgOpen, setIsImgOpen] = useState(false)
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true)
  
 
   const providerValues = {
@@ -35,6 +36,7 @@ function App() {
     isOpen, setIsOpen,
     allImages, setAllImages,
     isImgOpen, setIsImgOpen,
+    isSidebarOpen, setIsSidebarOpen
      
   }
 
