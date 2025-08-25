@@ -5,32 +5,36 @@ const API_URL = import.meta.env.VITE_ASKGPT_API_URL;
 
 function GeneratedImages() {
     const { allImages, setAllImages } = useContext(MyContext)
-    // console.log(allImages)
 
-   const deleteImage = async (url) => {
-    console.log("url---->",url)
-    const fileName = url.split('/').pop(); // Extract just the filename
-    console.log("Deleting:", fileName);
-
-    try {
-        const response = await fetch(
-            `${API_URL}/api/allGenImages/${fileName}`,
-            { method: "DELETE" }
-        );
-
-        const res = await response.json();
-        console.log(res);
-
-        if (response.ok) {
-            setAllImages(prev => prev.filter(img => !img.includes(fileName)));
-        } else {
-            console.log("Delete failed:", res.error);
+    const deleteImage = async (fileName) => {
+        const token = localStorage.getItem('token')
+        const options = {
+            method: "DELETE",
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
         }
-    } catch (error) {
-        console.error(error);
-        console.log("Error deleting image");
-    }
-};
+        try {
+            const response = await fetch(
+                `${API_URL}/api/allGenImages/${fileName}`,
+                options
+            );
+            // console.log("response--->", response)
+
+            const res = await response.json();
+            // console.log('res---', res);
+
+            if (response.ok) {
+                setAllImages(prev => prev.filter(img => !img.includes(fileName)));
+                console.log("Image deleted successfully");
+            } else {
+                console.log("Delete failed:", res.error);
+            }
+        } catch (error) {
+            console.error(error);
+            console.log("Error deleting image");
+        }
+    };
 
 
     return (
@@ -41,7 +45,7 @@ function GeneratedImages() {
                 {
                     allImages.map((url, idx) => {
                         const fileName = url.split('/').pop() || "image.jpg";
-
+                        // console.log("delete btn fileName--->", fileName)
                         return (
                             <div className="image-container" key={idx}>
                                 <img src={url} alt="AskGPT_Generated_IMG_ERR" />
@@ -50,7 +54,7 @@ function GeneratedImages() {
 
                                         <i className="fa-solid fa-download img-action"></i>
                                     </a>
-                                    <i className="fa-solid fa-delete-left img-action" onClick={() => deleteImage(fileName)}></i>
+                                    <i className="fa-solid fa-delete-left img-action" onClick={(e) => deleteImage(fileName)}></i>
                                 </div>
                             </div>
                         )

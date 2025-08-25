@@ -6,23 +6,25 @@ const API_URL = import.meta.env.VITE_ASKGPT_API_URL;
 // console.log(API_URL)
 
 function Sidebar() {
-    const { allThreads, setAllThreads, setNewChat, setPrompt, setReply, currentThreadId, setCurrentThreadId, setPrevChats,
+    const { allThreads, setAllThreads, setNewChat, setPrompt, reply, setReply, currentThreadId, setCurrentThreadId, setPrevChats,
         setAllImages, theme, setTheme, isImgOpen, setIsImgOpen, isSidebarOpen } = useContext(MyContext)
 
     const toggleTheme = () => {
         setTheme(theme === "dark" ? "light" : "dark")
     }
 
-
     const toggleImageComponent = () => {
         // console.log("click")
         setIsImgOpen(!isImgOpen)
     }
 
-    const getAllThreads = async () => {
-        const token = localStorage.getItem("token");
+    const token = localStorage.getItem("token");
+    const role = localStorage.getItem("role");
+
+    const fetchThreads = async () => {
         try {
-            const response = await fetch(`${API_URL}/api/thread`, {
+            const endpoint = role === 'admin' ? '/api/getAllThreads' : '/api/thread'
+            const response = await fetch(`${API_URL}${endpoint}`, {
                 headers: { "Authorization": `Bearer ${token}` }
             })
             const res = await response.json()
@@ -42,48 +44,17 @@ function Sidebar() {
             console.log("getAllThreads --->", err)
         }
     }
-
-    // admin
-    const getAllThreadsAdmin = async () => {
-        const token = localStorage.getItem("token");
-        try {
-            const response = await fetch(`${API_URL}/api/getAllThreads`, {
-                headers: { "Authorization": `Bearer ${token}` }
-            })
-            const res = await response.json()
-            // console.log("Admin Threads API →", res)
-            //title
-            if (Array.isArray(res)) {
-                const allThreadsData = res.map(thread => ({
-                    threadId: thread.threadId,
-                    title: thread.title
-                }))
-                setAllThreads(allThreadsData)
-            } else {
-                console.error(" getAllThreadsAdmin Unexpected response (not an array):", res)
-            }
-
-        } catch (err) {
-            console.log("getAllThreadsAdmin --->", err)
-        }
-    }
-
+    
     useEffect(() => {
-        const role = localStorage.getItem("role");
-        if (role === "admin") {
-            getAllThreadsAdmin();
-        } else {
-            getAllThreads();
-        }
-    }, []);
-
+        fetchThreads()
+    }, [reply]);
 
     //generated Images
-    const getAllImages = async () => {
-        const token = localStorage.getItem("token");
-        try {
+    const fetchImages = async () => {
 
-            const response = await fetch(`${API_URL}/api/allGenImages`, {
+        try {
+            const endpoint = role === 'admin' ? "/api/allGenImagesAdmin" : "/api/allGenImages"
+            const response = await fetch(`${API_URL}${endpoint}`, {
                 headers: { "Authorization": `Bearer ${token}` }
             })
             const URLData = await response.json()
@@ -100,36 +71,8 @@ function Sidebar() {
             console.log("getAllImages Error ", error)
         }
     }
-    const getAllImagesAdmin = async () => {
-        const token = localStorage.getItem("token");
-        try {
-
-            const response = await fetch(`${API_URL}/api/allGenImagesAdmin`, {
-                headers: { "Authorization": `Bearer ${token}` }
-            })
-            const URLData = await response.json()
-            // console.log("Images API →", URLData)
-            // console.log(res)
-            if (Array.isArray(URLData)) {
-                const allIamges = URLData.map(img => `${API_URL}${img.content.imageUrl}`)
-                setAllImages(allIamges)
-            } else {
-                console.error("Unexpected response (not an array):", URLData)
-            }
-
-        } catch (error) {
-            console.log("getAllImages Error ", error)
-        }
-    }
-
-
     useEffect(() => {
-        const role = localStorage.getItem("role");
-        if (role === "admin") {
-            getAllImagesAdmin();
-        } else {
-            getAllImages();
-        }
+        fetchImages()
     }, []);
 
     const createNewChat = () => {
@@ -140,30 +83,14 @@ function Sidebar() {
         setPrevChats([])
     }
 
-    const changeThread = async (newThreadId) => {
+    const handleChangeThread = async (newThreadId) => {
         setCurrentThreadId(newThreadId)
-        const token = localStorage.getItem("token");
         try {
-            const response = await fetch(`${API_URL}/api/thread/${newThreadId}`, {
-                headers: { "Authorization": `Bearer ${token}` }
-            })
-            const res = await response.json()
-            // console.log(res)
-            // console.log(res.messages)
-            setPrevChats(res.messages)
-            setNewChat(false)
-            setReply(null)
+            const endpoint = role === "admin"
+                ? `/api/getAllThreads/${newThreadId}`
+                : `/api/thread/${newThreadId}`;
 
-        } catch (err) {
-            console.log("change thread --->", err)
-        }
-
-    }
-    const changeAllThread = async (newAllThreadId) => {
-        setCurrentThreadId(newAllThreadId)
-        const token = localStorage.getItem("token");
-        try {
-            const response = await fetch(`${API_URL}/api/getAllThreads/${newAllThreadId}`, {
+            const response = await fetch(`${API_URL}${endpoint}`, {
                 headers: { "Authorization": `Bearer ${token}` }
             })
             const res = await response.json()
@@ -179,32 +106,22 @@ function Sidebar() {
 
     }
 
-    const handleChangeThread = (threadId) => {
-        const role = localStorage.getItem("role");
-        if (role === "admin") {
-            changeAllThread(threadId);
-        } else {
-            changeThread(threadId);
-        }
-    }
-
-    const deleteThread = async (delThreadId) => {
-        // console.log("delete btn clicked....")
-        // console.log(delThreadId)
-        const token = localStorage.getItem("token");
+    const handleDeleteThread = async (delThreadId) => {
         try {
-            const response = await fetch(`${API_URL}/api/thread/${delThreadId}`, {
+            const endpoint = role === "admin"
+                ? `/api/getAllThreads/${delThreadId}`
+                : `/api/thread/${delThreadId}`;
+            const response = await fetch(`${API_URL}${endpoint}`, {
                 method: "DELETE",
                 headers: { "Authorization": `Bearer ${token}` }
             })
             const res = await response.json();
             // console.log(res)
-
             setAllThreads(prev => prev.filter(thread => thread.threadId !== delThreadId))
             if (delThreadId === currentThreadId) {
                 createNewChat()
             }
-
+            console.log('delete successful')
         } catch (err) {
             console.log("delete thread", err)
         }
@@ -213,7 +130,11 @@ function Sidebar() {
     return (
         isSidebarOpen && (
             <section className='sidebar'>
-                <button className='logo' onClick={createNewChat}>
+                <button className='logo' onClick={(e) => {
+                    createNewChat()
+                    setIsImgOpen(false)
+                }
+                }>
                     <p>AskGPT</p>
                     <i className='fa-solid fa-pen-to-square'></i>
                 </button>
@@ -244,7 +165,7 @@ function Sidebar() {
                                         <i className='fa-solid fa-trash'
                                             onClick={(e) => {
                                                 e.stopPropagation()
-                                                deleteThread(thread.threadId)
+                                                handleDeleteThread(thread.threadId)
                                             }}
                                         ></i>
                                     </li>

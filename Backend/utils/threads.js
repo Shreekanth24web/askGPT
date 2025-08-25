@@ -5,6 +5,7 @@ import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
+import { threadId } from 'worker_threads';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
@@ -78,6 +79,21 @@ export const deleteThread = async (req, res) => {
     }
 }
 
+export const deleteThreadByAdmin = async (req, res) => {
+    // console.log('deleteAllthreads triggered------->')
+    const { threadId } = req.params
+    try {
+        const deleteAllThreads = await Thread.findOneAndDelete({threadId})  
+        if (!deleteAllThreads) {
+            res.status(400).json({ error: "Threads not found" })
+        }
+        res.status(200).json({ success: "Threads deleted successfuly by admin" })
+    } catch (err) {
+        console.log("delete threads by admin error ---->", err)
+        res.status(500).json({ error: "Failed to delete threads by admin" })
+    }
+}
+
 export const chat = async (req, res) => {
     const { threadId, message } = req.body
     if (!threadId || !message) {
@@ -109,6 +125,7 @@ export const chat = async (req, res) => {
     }
 }
 
+//Gen images
 export const getGenImage = async (req, res) => {
     try {
         const threads = await Thread.find({ userId: req.user.id, })

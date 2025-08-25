@@ -2,13 +2,7 @@ import express from 'express'
 import Thread from '../models/thread.js'
 const router = express.Router();
 import { adminMiddleware, authMiddleware } from "../middlewareAuth.js";
-import { getAllThreads, threads, threadsId, getAllThreadsId, deleteThread, chat, getGenImage, getAllGenImages, generateImage, deleteGenImg } from '../utils/threads.js'
-import fs from 'fs'
-import path from 'path'
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+import { getAllThreads, threads, threadsId, getAllThreadsId, deleteThread, chat, getGenImage, getAllGenImages, generateImage, deleteGenImg, deleteThreadByAdmin } from '../utils/threads.js'
 
 
 //admin
@@ -25,6 +19,9 @@ router.get("/getAllThreads/:threadId", authMiddleware, adminMiddleware, getAllTh
 
 //delete thread
 router.delete('/thread/:threadId', authMiddleware, deleteThread)
+
+//delete admin thread
+router.delete('/getAllThreads/:threadId', authMiddleware, adminMiddleware, deleteThreadByAdmin)
 
 //post 
 router.post("/chat", authMiddleware, chat)

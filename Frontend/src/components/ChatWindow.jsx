@@ -5,8 +5,8 @@ import { MyContext } from './MyContext.jsx'
 import { PropagateLoader } from 'react-spinners'
 import GeneratedImages from './GeneratedImages.jsx'
 import { useNavigate } from 'react-router'
-const API_URL = import.meta.env.VITE_ASKGPT_API_URL;
-
+const API_URL = import.meta.env.VITE_ASKGPT_API_URL  
+console.log(`API Url--->",${API_URL}`)
 
 function ChatWindow() {
     const navigate = useNavigate()
@@ -14,13 +14,11 @@ function ChatWindow() {
     const [loading, setLoading] = useState(false)
     const [profile, setProfile] = useState(null) 
 
-    const toggleSidebar = () => {
-        console.log("click")
+    const toggleSidebar = () => { 
         setIsSidebarOpen(!isSidebarOpen)
     }
 
-    const dropDoentoggle = () => {
-        // console.log("click")
+    const dropDoentoggle = () => { 
         setIsOpen(!isOpen)
     }
 
@@ -74,9 +72,7 @@ function ChatWindow() {
             const response = await fetch(`${API_URL}/api/generate-image`, imgOptions);
 
             const res = await response.json();
-
             // console.log("🖼️ Image response:", res);
-
             if (res.image.imageUrl) {
                 // Store image
                 setAllImages(prev => [...prev, res.image]);
@@ -84,8 +80,8 @@ function ChatWindow() {
                 // Use actual image path in reply
                 // ![Generated Image](/assets/Image_2025-08-07_11-46-28.png)
                 const imageReply = `Here is the generated image:\n\n![Generated Image](${API_URL}${res.image.imageUrl})`;
-                // console.log('image path---->', res.image.imageUrl)
-                // console.log('imageReply------>', imageReply)
+                console.log('image path---->', res.image.imageUrl)
+                console.log('imageReply------>', imageReply)
 
                 setReply(imageReply);
             } else {

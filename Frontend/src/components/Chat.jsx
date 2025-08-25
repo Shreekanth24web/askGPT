@@ -59,7 +59,9 @@ function Chat() {
                                                 components={{
                                                     img: ({ node, ...props }) => {
                                                         const fileName = props.src?.split('/').pop() || "image.jpg";
+                                                        // console.log('Chta----fileName--->', fileName)
                                                         const newSrc = `${API_URL}/assets/${fileName}`
+                                                        // console.log('Chat---newSrc--->', newSrc)
 
                                                         return (
                                                             <span>
