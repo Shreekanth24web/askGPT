@@ -76,6 +76,7 @@ function Sidebar() {
     }, []);
 
     const createNewChat = () => {
+        // console.log("Create New Thread----->")
         setNewChat(true)
         setPrompt('')
         setReply(null)

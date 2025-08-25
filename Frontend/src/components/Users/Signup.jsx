@@ -1,10 +1,9 @@
 import '../../Styles/signup.css';
 import { Link, useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 const API_URL = import.meta.env.VITE_ASKGPT_API_URL;
 
-
- 
-import {  useState } from 'react';
+import { useState } from 'react';
 function Signup() {
     const navigate = useNavigate();
     const [signupData, setSignupData] = useState({
@@ -19,6 +18,18 @@ function Signup() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (!signupData.name || !signupData.email || !signupData.password) {
+            Swal.fire({
+                position: "top",
+                icon: "warning",
+                title: "Please fill your signup details",
+                showConfirmButton: false,
+                timer: 2700,
+                toast: true,
+                timerProgressBar: true
+            });
+            return;
+        }
         const options = {
             method: "POST",
             headers: {
@@ -30,15 +41,37 @@ function Signup() {
             const res = await fetch(`${API_URL}/user/signup`, options)
             //    console.log(res)
             const data = await res.json()
+            if (!res.ok) throw new Error(data.error || "Signup failed");
             //  console.log("Response from server:", data);
-            alert(data.message || "Signup successful!");
-            navigate('/login');
+            localStorage.setItem('token', data.token);
+
+            if (data.user?.role) {
+                localStorage.setItem("role", data.user.role);
+                // console.log("Role saved:", data.user.role);
+            }
+            localStorage.setItem('user', JSON.stringify(data.user));
+
+            Swal.fire({
+                title: 'Signup Successfully 🎉',
+                // text: data.message || 'Welcome back!',
+                icon: 'success',
+                confirmButtonColor: '#3085d6',
+                background: '#212121',
+                color: '#fff'
+
+            }).then(() => {
+                navigate('/login');
+            })
 
         } catch (error) {
             console.error("Error during signup:", error);
-            alert(error.message || "Signup failed");
+            Swal.fire({
+                title: 'Signup Failed ❌',
+                text: error.message || 'Something went wrong. Please try again.',
+                icon: 'error',
+                confirmButtonColor: '#d33'
+            });
         }
-
     }
     return (
         <div className="container">
@@ -55,7 +88,7 @@ function Signup() {
                         name='name'
                         onChange={handleInputChange}
                         value={signupData.name}
-                        required
+
                     />  <br />
                     <input
                         type="email"
@@ -63,7 +96,7 @@ function Signup() {
                         name='email'
                         onChange={handleInputChange}
                         value={signupData.email}
-                        required
+
                     />  <br />
                     <input
                         type="password"
@@ -71,7 +104,7 @@ function Signup() {
                         name='password'
                         onChange={handleInputChange}
                         value={signupData.password}
-                        required
+
                     /> <br />
 
                     <div className="btns">

@@ -5,20 +5,21 @@ import { MyContext } from './MyContext.jsx'
 import { PropagateLoader } from 'react-spinners'
 import GeneratedImages from './GeneratedImages.jsx'
 import { useNavigate } from 'react-router'
-const API_URL = import.meta.env.VITE_ASKGPT_API_URL  
+import Swal from 'sweetalert2'
+const API_URL = import.meta.env.VITE_ASKGPT_API_URL
 console.log(`API Url--->",${API_URL}`)
 
 function ChatWindow() {
     const navigate = useNavigate()
-    const { prompt, setPrompt, reply, setReply, currentThreadId, setPrevChats, setNewChat, isOpen, setIsOpen, allImages, setAllImages, isImgOpen, setIsImgOpen,isSidebarOpen, setIsSidebarOpen } = useContext(MyContext)
+    const { prompt, setPrompt, reply, setReply, currentThreadId, setPrevChats, setNewChat, isOpen, setIsOpen, allImages, setAllImages, isImgOpen, setIsImgOpen, isSidebarOpen, setIsSidebarOpen } = useContext(MyContext)
     const [loading, setLoading] = useState(false)
-    const [profile, setProfile] = useState(null) 
+    const [profile, setProfile] = useState(null)
 
-    const toggleSidebar = () => { 
+    const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen)
     }
 
-    const dropDoentoggle = () => { 
+    const dropDoentoggle = () => {
         setIsOpen(!isOpen)
     }
 
@@ -120,12 +121,21 @@ function ChatWindow() {
     }, [])
 
     const handleLogout = () => {
-        console.log("------logout----")
+
         localStorage.clear()
-        // setNewChat(true) 
         setIsOpen(false)
+        setPrevChats([])
+        Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "You have been logged out successfully",
+            showConfirmButton: false,
+            timer: 1800
+        });
+
         navigate('/', { replace: true })
-        window.location.reload() 
+
+
     }
 
     return (
